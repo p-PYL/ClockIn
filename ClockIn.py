@@ -26,7 +26,7 @@ date = date + str(day)
 
 # Wxpush()消息推送模块
 def Wxpush(msg):
-    url = f'https://sc.ftqq.com/{sckey}.send?text={date}日{msg}'
+    url = f'https://sc.ftqq.com/{sckey}.send?text={msg}'
     for _ in range(3):
         err = requests.get(url)
         if not err.json()['errno']:
@@ -145,11 +145,11 @@ def sign_in_evening(token):
     data = json.dumps(data)
     response = session.post(url=url, headers=header, data=data)
     if response.json()['status'] == 1:
-        print("success!")
+        msg = '签到成功'
+        Wxpush(msg)
     else:
-        print("fail!")
-    msg = parse.quote_plus(response.json()['msg'])
-    Wxpush(msg)
+        msg = parse.quote_plus(response.json()['msg'])
+        Wxpush(msg)
 
 
 if __name__ == "__main__":
